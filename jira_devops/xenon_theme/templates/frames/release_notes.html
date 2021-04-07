@@ -1,0 +1,49 @@
+{% extends "layouts/base_frame.html" %}
+
+{% block title %}
+    {{ build_page_title }}
+{% endblock %}
+
+{% block content %}
+    {% for release_note in release_notes %}
+        Release: <strong>{{ release_note.release }}</strong>
+
+        <table class="table table-small-font table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Ticket</th>
+                <th>HAC update</th>
+                <th>Requires impex</th>
+                <th>Requires manual steps</th>
+                <th>Special notes</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for ticket_note in release_note.ticket_notes %}
+                <tr>
+                    <td>{{ ticket_note.id }}</td>
+                    {% if ticket_note.update == True %}
+                        <td><i class="fa-check"></i></td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+
+                    {% if ticket_note.impex == True %}
+                        <td><i class="fa-check"></i></td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if ticket_note.manual == True %}
+                        <td><i class="fa-check"></i></td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+
+                    <td>{{ ticket_note.special|default_if_none:"" }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+    {% endfor %}
+{% endblock %}

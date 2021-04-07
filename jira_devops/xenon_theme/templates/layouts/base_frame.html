@@ -1,0 +1,34 @@
+{% load static %}
+{% load compress %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>
+        {% block title %}
+
+        {% endblock %}
+    </title>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Arimo:400,700,400italic">
+    {% compress css %}
+        <link rel="stylesheet" href="{% static "css/fonts/linecons/css/linecons.css" %}">
+        <link rel="stylesheet" href="{% static "css/fonts/fontawesome/css/font-awesome.min.css" %}">
+        <link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+        <link rel="stylesheet" href="{% static "css/xenon-core.css" %}">
+        <link rel="stylesheet" href="{% static "css/xenon-forms.css" %}">
+        <link rel="stylesheet" href="{% static "css/xenon-components.css" %}">
+        <link rel="stylesheet" href="{% static "css/xenon-skins.css" %}">
+        <link rel="stylesheet" href="{% static "css/custom.css" %}">
+
+        {% block header_css %}
+        {% endblock %}
+
+    {% endcompress %}
+
+</head>
+<body class="page-body">
+{% block content %}
+
+{% endblock %}
+</body>
+</html>
