@@ -37,10 +37,15 @@ docker run -p 8000:8000 jira_devops
 ## Usage notes
 
 + URL to view generated release notes (could be injected as an iframe in Confluence)
-    + /frames/releases/ - generate release notes for all unreleased releases
-    + /frames/releases/?version=PRJ-V1.00.0 - generate release notes for specified release name
+  + /frames/releases/ - generate release notes for all unreleased releases
+  + /frames/releases/?version=PRJ-V1.00.0 - generate release notes for specified release name
 
 ## Version history
 
+### 0.1.1
+
++ **(Bug)** Allow injecting release notes via iframe on any page.
+
 ### 0.1
+
 + **(Feature)** Generate release note page from Jira tickets.

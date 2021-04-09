@@ -1,3 +1,5 @@
+from django.utils.decorators import method_decorator
+from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.generic import TemplateView
 
 from jira_devops.jira.search.ReleaseDao import release_dao
@@ -15,6 +17,7 @@ class HomeView(TemplateView):
         return context
 
 
+@method_decorator(xframe_options_exempt, name='dispatch')
 class ReleaseView(TemplateView):
     template_name = "frames/release_notes.html"
 
