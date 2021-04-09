@@ -1,3 +1,7 @@
 Django==3.2
 django-compressor==2.4
 jira==2.0.0
+# HTTPS server setup
+django-extensions==3.1.2
+Werkzeug==1.0.1
+pyOpenSSL==20.0.1

@@ -44,7 +44,7 @@ docker run -p 8000:8000 jira_devops
 
 ### 0.1.1
 
-+ **(Bug)** Allow injecting release notes via iframe on any page.
++ **(Bug)** Allow injecting release notes via iframe on HTTPS page.
 
 ### 0.1
 
