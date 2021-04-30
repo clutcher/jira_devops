@@ -5,11 +5,12 @@ from jira_devops.repo.RepoFilesService import RepoFilesService
 
 
 class TicketReleaseNoteDTO:
-    __slots__ = "id", "update", "impex", "impex_files_map", "manual", "special"
+    __slots__ = "id", "responsible_person", "update", "impex", "impex_files_map", "manual", "special"
 
-    def __init__(self, ticket_id: str, update, impex, manual, special: str) -> None:
+    def __init__(self, ticket_id: str, responsible_person, update, impex, manual, special: str) -> None:
         self.id = ticket_id
         self.special = special
+        self.responsible_person = responsible_person
 
         self.update = self.convert_to_valid_boolean(update)
         self.impex = self.convert_to_valid_boolean(impex)

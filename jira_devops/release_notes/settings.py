@@ -10,6 +10,7 @@ class ReleaseNotesAppConfig(AppConfig):
         "need_impex": "customfield_13360",
         "need_manual": "customfield_13361",
         "special_notes": "customfield_13362",
+        "responsible_person": "customfield_12200",
     }
 
     def ready(self):

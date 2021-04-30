@@ -13,9 +13,10 @@
             <thead>
             <tr>
                 <th>Ticket</th>
-                <th>HAC update</th>
-                <th>Requires impex</th>
-                <th>Requires manual steps</th>
+                <th>Responsible</th>
+                <th>Update</th>
+                <th>Impex</th>
+                <th>Manual</th>
                 <th>Special notes</th>
             </tr>
             </thead>
@@ -23,6 +24,7 @@
             {% for ticket_note in release_note.ticket_notes %}
                 <tr>
                     <td>{{ ticket_note.id | non_breaking_hyphen }}</td>
+                    <td>{{ ticket_note.responsible_person }}</td>
                     {% if ticket_note.update == True %}
                         <td><i class="fa-check"></i></td>
                     {% else %}

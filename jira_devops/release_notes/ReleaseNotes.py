@@ -21,8 +21,10 @@ class ReleaseNotes:
             requires_impex = getattr(issue.fields, settings.JIRA_RELEASE_FIELD_MAP["need_impex"])
             requires_manual = getattr(issue.fields, settings.JIRA_RELEASE_FIELD_MAP["need_manual"])
             special_notes = getattr(issue.fields, settings.JIRA_RELEASE_FIELD_MAP["special_notes"])
+            responsible_person = getattr(issue.fields, settings.JIRA_RELEASE_FIELD_MAP["responsible_person"])
 
             ticket_release_note = TicketReleaseNoteDTO(issue.key,
+                                                       responsible_person,
                                                        requires_hac_update,
                                                        requires_impex,
                                                        requires_manual,
