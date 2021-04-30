@@ -23,6 +23,6 @@ RUN JIRA_SERVER='dummy' JIRA_USERNAME='dummy'  JIRA_PASSWORD='dummy' python mana
 
 EXPOSE 8000
 # start HTTP server
-#CMD ["python", "manage.py", "runserver", "--noreload", "0.0.0.0:8000"]
-# start HTTPS server
-CMD ["python", "manage.py", "runserver_plus", "--threaded", "--noreload", "--cert-file", "auto_crt", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "--noreload", "0.0.0.0:8000"]
+# start HTTPS server, uncomment requrements.txt and defaults.py before switching
+#CMD ["python", "manage.py", "runserver_plus", "--threaded", "--noreload", "--cert-file", "auto_crt", "0.0.0.0:8000"]

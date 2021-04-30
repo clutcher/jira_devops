@@ -40,7 +40,8 @@ DJANGO_APP = (
 
 DJANGO_COMM_APP = (
     'compressor',
-    'django_extensions',
+    # HTTPS server
+    # 'django_extensions',
 )
 
 CUSTOM_APP = (
