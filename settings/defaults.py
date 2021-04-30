@@ -45,6 +45,7 @@ DJANGO_COMM_APP = (
 
 CUSTOM_APP = (
     'jira_devops.jira',
+    'jira_devops.repo',
     'jira_devops.release_notes',
 
     'jira_devops.xenon_theme',
