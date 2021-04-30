@@ -4,7 +4,6 @@ from django.views.generic import TemplateView
 
 from jira_devops.jira.search.ReleaseDao import release_dao
 from jira_devops.release_notes.ReleaseNotes import ReleaseNotes
-from jira_devops.release_notes.dto.TicketReleaseNoteDTO import TicketReleaseNoteDTO
 
 
 class HomeView(TemplateView):
@@ -40,21 +39,9 @@ class ReleaseView(TemplateView):
 
         return context
 
-    def release_notes_with_clean_up(self, release_id):
+    @staticmethod
+    def release_notes_with_clean_up(release_id):
         release_note = ReleaseNotes(release_id).generate()
         ticket_notes = release_note.ticket_notes
-        cleaned_ticket_notes = [x for x in ticket_notes if not self.useless_note(x)]
+        cleaned_ticket_notes = [x for x in ticket_notes if not x.useless_note()]
         return ReleaseNotes(release_id, cleaned_ticket_notes)
-
-    @staticmethod
-    def useless_note(ticket_note: TicketReleaseNoteDTO):
-        if ticket_note.special:
-            return False
-        elif ticket_note.update:
-            return False
-        elif ticket_note.impex:
-            return False
-        elif ticket_note.manual:
-            return False
-
-        return True

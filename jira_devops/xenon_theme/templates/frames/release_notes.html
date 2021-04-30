@@ -1,4 +1,5 @@
 {% extends "layouts/base_frame.html" %}
+{% load non_breaking_hyphen %}
 
 {% block title %}
     {{ build_page_title }}
@@ -21,7 +22,7 @@
             <tbody>
             {% for ticket_note in release_note.ticket_notes %}
                 <tr>
-                    <td>{{ ticket_note.id }}</td>
+                    <td>{{ ticket_note.id | non_breaking_hyphen }}</td>
                     {% if ticket_note.update == True %}
                         <td><i class="fa-check"></i></td>
                     {% else %}
@@ -29,9 +30,32 @@
                     {% endif %}
 
                     {% if ticket_note.impex == True %}
-                        <td><i class="fa-check"></i></td>
+                        <td>
+                            {% if ticket_note.impex_files_map %}
+                                <i class="fa-check"></i>
+                                {% for release_version, impexes in ticket_note.impex_files_map.items %}
+                                    {% if release_version in release_note.release %}
+                                        {% for impex_file in impexes %}
+                                            <p style="color: green">{{ impex_file | non_breaking_hyphen }}</p>
+                                        {% endfor %}
+                                    {% else %}
+                                        {% for impex_file in impexes %}
+                                            <p style="color: red">{{ impex_file | non_breaking_hyphen }}</p>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                <i style="color: red" class="fa-check"></i>
+                            {% endif %}
+                        </td>
                     {% else %}
-                        <td></td>
+                        <td>
+                            {% if ticket_note.impex_files_map %}
+                                {% for release in ticket_note.impex_files_map %}
+                                    <p style="color: red">{{ impex_file | non_breaking_hyphen }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        </td>
                     {% endif %}
                     {% if ticket_note.manual == True %}
                         <td><i class="fa-check"></i></td>
@@ -39,7 +63,9 @@
                         <td></td>
                     {% endif %}
 
-                    <td>{{ ticket_note.special|default_if_none:"" }}</td>
+                    <td>
+                        <p style="color: #2c2e2f">{{ ticket_note.special|default_if_none:"" }}</p>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
