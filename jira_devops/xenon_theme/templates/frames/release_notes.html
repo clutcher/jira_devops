@@ -60,7 +60,13 @@
                         </td>
                     {% endif %}
                     {% if ticket_note.manual == True %}
-                        <td><i class="fa-check"></i></td>
+                        <td>
+                            {% if ticket_note.special %}
+                                <i class="fa-check"></i>
+                            {% else %}
+                                <i style="color: red" class="fa-check"></i>
+                            {% endif %}
+                        </td>
                     {% else %}
                         <td></td>
                     {% endif %}
