@@ -53,8 +53,11 @@
                     {% else %}
                         <td>
                             {% if ticket_note.impex_files_map %}
-                                {% for release in ticket_note.impex_files_map %}
-                                    <p style="color: red">{{ impex_file | non_breaking_hyphen }}</p>
+                                <i class="fa-minus"></i>
+                                {% for release_version, impexes in ticket_note.impex_files_map.items %}
+                                    {% for impex_file in impexes %}
+                                        <p style="color: red">{{ impex_file | non_breaking_hyphen }}</p>
+                                    {% endfor %}
                                 {% endfor %}
                             {% endif %}
                         </td>
