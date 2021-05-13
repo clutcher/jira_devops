@@ -1,6 +1,6 @@
-Django==3.2
+Django==3.2.3
 django-compressor==2.4.1
-jira==2.0.0
+jira==3.0.1
 # HTTPS server setup
 # django-extensions==3.1.2
 # Werkzeug==1.0.1
