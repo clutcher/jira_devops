@@ -21,7 +21,7 @@ def convert_to_dict(obj):
     return obj
 
 
-class Command(BaseCommand):
+class ReleaseNoteCommand(BaseCommand):
     help = 'Generate release notes'
 
     def handle(self, *args, **options):

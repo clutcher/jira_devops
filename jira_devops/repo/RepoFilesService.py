@@ -9,7 +9,11 @@ class RepoFilesService:
     def get_file_names_from_repository(grep_filter):
         command = "git ls-tree -r origin/release --name-only | grep %s" % grep_filter
 
-        process = subprocess.run(command, shell=True, capture_output=True, cwd=settings.GIT_REPO_PATH)
+        try:
+            process = subprocess.run(command, shell=True, capture_output=True, cwd=settings.GIT_REPO_PATH)
+        except:
+            return []
+
         result = process.stdout
 
         file_names = []

@@ -4,6 +4,7 @@ from django.views.generic import TemplateView
 
 from jira_devops.jira.search.ReleaseDao import release_dao
 from jira_devops.release_notes.ReleaseNotes import ReleaseNotes
+from jira_devops.repo import RepoUpdateRunner
 
 
 class HomeView(TemplateView):
@@ -22,6 +23,8 @@ class ReleaseView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(ReleaseView, self).get_context_data(**kwargs)
+
+        RepoUpdateRunner.async_fetch_repo()
 
         release_id = self.request.GET.get('version')
         release_notes = []
