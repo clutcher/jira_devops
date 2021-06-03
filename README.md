@@ -56,6 +56,12 @@ docker run -p 8000:8000 jira_devops
 
 ## Version history
 
+### 0.2
+
++ **(Feature)** Add git integration with repo autoupdate.
++ **(Feature)** Add responsible person column in release notes.
++ **(Improvement)** Disabled HTTPS, so it must be hidden by nginx/apache with proper cert.
+
 ### 0.1.1
 
 + **(Bug)** Allow injecting release notes via iframe on HTTPS page.
