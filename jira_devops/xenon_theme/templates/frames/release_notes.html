@@ -35,6 +35,7 @@
                         <td>
                             {% if ticket_note.impex_files_map %}
                                 <i class="fa-check"></i>
+                                {#                                {{ ticket_note.impex_files_map.items }}#}
                                 {% for release_version, impexes in ticket_note.impex_files_map.items %}
                                     {% if release_version in release_note.release %}
                                         {% for impex_file in impexes %}

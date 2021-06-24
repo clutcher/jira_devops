@@ -6,8 +6,9 @@ from django.conf import settings
 class RepoFilesService:
 
     @staticmethod
-    def get_file_names_from_repository(grep_filter):
-        command = "git ls-tree -r origin/release --name-only | grep %s" % grep_filter
+    def get_file_names_from_repository(grep_filter, branch_name=settings.GIT_CURRENT_BRANCH):
+
+        command = ("git ls-tree -r origin/" + branch_name + " --name-only | grep %s") % grep_filter
 
         try:
             process = subprocess.run(command, shell=True, capture_output=True, cwd=settings.GIT_REPO_PATH)

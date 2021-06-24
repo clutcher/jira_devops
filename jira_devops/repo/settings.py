@@ -20,7 +20,8 @@ class RepoAppConfig(AppConfig):
         dict_settings.setdefault('GIT_REPO_PATH', temp_repo_path)
 
         dict_settings.setdefault('GIT_REPO_URL', self.get_env_variable("GIT_REPO_URL"))
-        dict_settings.setdefault('GIT_WORKING_BRANCH', "release")
+        dict_settings.setdefault('GIT_CURRENT_BRANCH', "release")
+        dict_settings.setdefault('GIT_FUTURE_BRANCH', "develop")
 
         dict_settings.setdefault('GIT_USERNAME', self.get_env_variable("GIT_USERNAME"))
         dict_settings.setdefault('GIT_PASSWORD', self.get_env_variable("GIT_PASSWORD"))

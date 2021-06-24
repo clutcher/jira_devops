@@ -1,6 +1,6 @@
-import re
-from collections import defaultdict
+from django.conf import settings
 
+from jira_devops.release_notes.utils import ConverterUtils
 from jira_devops.repo.RepoFilesService import RepoFilesService
 
 
@@ -12,20 +12,16 @@ class TicketReleaseNoteDTO:
         self.special = special
         self.responsible_person = responsible_person
 
-        self.update = self.convert_to_valid_boolean(update)
-        self.impex = self.convert_to_valid_boolean(impex)
-        self.manual = self.convert_to_valid_boolean(manual)
+        self.update = ConverterUtils.convert_to_valid_boolean(update)
+        self.impex = ConverterUtils.convert_to_valid_boolean(impex)
+        self.manual = ConverterUtils.convert_to_valid_boolean(manual)
 
         impex_files = RepoFilesService.get_file_names_from_repository(ticket_id)
-        if impex_files:
-            impex_release_map = defaultdict(list)
-            for file_name in impex_files:
-                version = re.search(r"v([\d.]+)", file_name).group(1)
-                impex_release_map[version].append(file_name)
+        future_impex_files = RepoFilesService.get_file_names_from_repository(ticket_id, settings.GIT_FUTURE_BRANCH)
 
-            self.impex_files_map = dict(impex_release_map)
-        else:
-            self.impex_files_map = {}
+        version_map = ConverterUtils.create_file_version_map(impex_files)
+        future_version_map = ConverterUtils.create_file_version_map(future_impex_files, settings.GIT_FUTURE_BRANCH)
+        self.impex_files_map = ConverterUtils.merge_version_maps(version_map, future_version_map)
 
     def useless_note(self):
         if self.special:
@@ -40,17 +36,3 @@ class TicketReleaseNoteDTO:
             return False
 
         return True
-
-    @staticmethod
-    def convert_to_valid_boolean(value):
-        if value is None:
-            return False
-        elif isinstance(value, list):
-            list_value = value[0]
-            if hasattr(list_value, "value"):
-                string_value = list_value.value
-                if string_value == "Yes":
-                    return True
-        elif isinstance(value, bool):
-            return value
-        return False

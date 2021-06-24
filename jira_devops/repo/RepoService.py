@@ -14,7 +14,10 @@ class RepoService:
         repo_path = settings.GIT_REPO_PATH
         try:
             if os.path.exists(repo_path):
-                command = "git fetch --depth=1 origin %s" % settings.GIT_WORKING_BRANCH
+                command = "git fetch --depth=1 origin %s" % settings.GIT_CURRENT_BRANCH
+                subprocess.run(command, shell=True, cwd=settings.GIT_REPO_PATH)
+
+                command = "git fetch --depth=1 origin %s" % settings.GIT_FUTURE_BRANCH
                 subprocess.run(command, shell=True, cwd=settings.GIT_REPO_PATH)
             else:
                 RepoService.force_create_repository(logger)
@@ -49,4 +52,5 @@ class RepoService:
         subprocess.run("git remote add origin %s" % url, shell=True, cwd=repo_path)
 
         logger.info("Fetch latest data from git.")
-        subprocess.run("git fetch --depth=1 origin %s" % settings.GIT_WORKING_BRANCH, shell=True, cwd=repo_path)
+        subprocess.run("git fetch --depth=1 origin %s" % settings.GIT_CURRENT_BRANCH, shell=True, cwd=repo_path)
+        subprocess.run("git fetch --depth=1 origin %s" % settings.GIT_FUTURE_BRANCH, shell=True, cwd=repo_path)
