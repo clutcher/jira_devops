@@ -45,11 +45,11 @@ def merge_version_maps(current, future):
         result[key].extend(value)
     for key, value in future.items():
         current_results = result[key]
-        if current_results:
+        if not current_results:
+            current_results.extend(value)
+        else:
             for file in current_results:
                 if file not in value:
                     current_results.extend(value)
-        else:
-            current_results.extend(value)
 
     return dict(result)
