@@ -40,6 +40,12 @@ def get_version_from_file_name(file_name):
 
 
 def merge_version_maps(current, future):
+    def already_added(file, current_results):
+        for current_file in current_results:
+            if current_file in file:
+                return True
+        return False
+
     result = defaultdict(list)
     for key, value in current.items():
         result[key].extend(value)
@@ -48,8 +54,8 @@ def merge_version_maps(current, future):
         if not current_results:
             current_results.extend(value)
         else:
-            for file in current_results:
-                if file not in value:
-                    current_results.extend(value)
+            for file in value:
+                if not already_added(file, current_results):
+                    current_results.append(file)
 
     return dict(result)
