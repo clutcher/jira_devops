@@ -1,6 +1,8 @@
 import re
 from collections import defaultdict
 
+from django.conf import settings
+
 
 def convert_to_valid_boolean(value):
     if value is None:
@@ -23,9 +25,9 @@ def create_file_version_map(files, prefix=None):
         for file_name in files:
             version = get_version_from_file_name(file_name)
             if prefix:
-                version_file_name = prefix + ":" + file_name
+                version_file_name = prefix + ":" + file_name.removeprefix(settings.FILE_CLEAN_UP_PREFIX)
             else:
-                version_file_name = file_name
+                version_file_name = file_name.removeprefix(settings.FILE_CLEAN_UP_PREFIX)
             version_map[version].append(version_file_name)
 
     return version_map

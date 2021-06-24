@@ -1,3 +1,5 @@
+import os
+
 from django.apps import AppConfig
 
 
@@ -17,3 +19,12 @@ class ReleaseNotesAppConfig(AppConfig):
         from django.conf import settings
         settings = settings._wrapped.__dict__
         settings.setdefault('JIRA_RELEASE_FIELD_MAP', self.DEFAULT_JIRA_RELEASE_FIELD_MAP)
+
+        settings.setdefault('FILE_CLEAN_UP_PREFIX', self.get_env_variable("FILE_CLEAN_UP_PREFIX", "hybris/bin/custom"))
+
+    @staticmethod
+    def get_env_variable(variable, default=""):
+        value = os.getenv(variable)
+        if not value:
+            return default
+        return value
