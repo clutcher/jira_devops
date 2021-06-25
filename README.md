@@ -59,6 +59,7 @@ docker run -p 8000:8000 jira_devops
 ### 0.2.1
 
 + **(Feature)** Add future branch checking for impex files
++ **(Feature)** Show only impex files in impex column. Other type of wiles show in manual column
 + **(Feature)** Add filename clean up prefix
 
 ### 0.2
