@@ -61,3 +61,18 @@ def merge_version_maps(current, future):
                     current_results.append(file)
 
     return dict(result)
+
+
+def create_version_map(current_file_list, future_file_list):
+    version_map = create_file_version_map(current_file_list)
+    future_version_map = create_file_version_map(future_file_list, settings.GIT_FUTURE_BRANCH)
+    impex_file_version_map = merge_version_maps(version_map, future_version_map)
+    return impex_file_version_map
+
+
+def filter_impex_files(file_list):
+    return [name for name in file_list if name.endswith(".impex")]
+
+
+def filter_non_impex_files(file_list):
+    return [name for name in file_list if not name.endswith(".impex")]

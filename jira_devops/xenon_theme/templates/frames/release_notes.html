@@ -25,55 +25,17 @@
                 <tr>
                     <td>{{ ticket_note.id | non_breaking_hyphen }}</td>
                     <td>{{ ticket_note.responsible_person }}</td>
-                    {% if ticket_note.update == True %}
-                        <td><i class="fa-check"></i></td>
-                    {% else %}
-                        <td></td>
-                    {% endif %}
-
-                    {% if ticket_note.impex == True %}
-                        <td>
-                            {% if ticket_note.impex_files_map %}
-                                <i class="fa-check"></i>
-                                {#                                {{ ticket_note.impex_files_map.items }}#}
-                                {% for release_version, impexes in ticket_note.impex_files_map.items %}
-                                    {% if release_version in release_note.release %}
-                                        {% for impex_file in impexes %}
-                                            <p style="color: green">{{ impex_file | non_breaking_hyphen }}</p>
-                                        {% endfor %}
-                                    {% else %}
-                                        {% for impex_file in impexes %}
-                                            <p style="color: red">{{ impex_file | non_breaking_hyphen }}</p>
-                                        {% endfor %}
-                                    {% endif %}
-                                {% endfor %}
-                            {% else %}
-                                <i style="color: red" class="fa-check"></i>
-                            {% endif %}
-                        </td>
-                    {% else %}
-                        <td>
-                            {% if ticket_note.impex_files_map %}
-                                <i class="fa-minus"></i>
-                                {% for release_version, impexes in ticket_note.impex_files_map.items %}
-                                    {% for impex_file in impexes %}
-                                        <p style="color: red">{{ impex_file | non_breaking_hyphen }}</p>
-                                    {% endfor %}
-                                {% endfor %}
-                            {% endif %}
-                        </td>
-                    {% endif %}
-                    {% if ticket_note.manual == True %}
-                        <td>
-                            {% if ticket_note.special %}
-                                <i class="fa-check"></i>
-                            {% else %}
-                                <i style="color: red" class="fa-check"></i>
-                            {% endif %}
-                        </td>
-                    {% else %}
-                        <td></td>
-                    {% endif %}
+                    <td>
+                        {% if ticket_note.update == True %}
+                            <i class="fa-check"></i>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% include "components/version_file_list.html" with checkbox=ticket_note.impex file_version_map=ticket_note.impex_files_map %}
+                    </td>
+                    <td>
+                        {% include "components/version_file_list.html" with checkbox=ticket_note.manual file_version_map=ticket_note.manual_files_map gray_when_empty=ticket_note.special %}
+                    </td>
 
                     <td>
                         <p style="color: #2c2e2f">{{ ticket_note.special|default_if_none:"" }}</p>

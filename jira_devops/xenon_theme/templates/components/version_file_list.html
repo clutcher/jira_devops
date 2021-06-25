@@ -1,0 +1,33 @@
+{% load non_breaking_hyphen %}
+
+{% if checkbox == True %}
+    {% if file_version_map %}
+        <i class="fa-check"></i>
+        {% for release_version, file_list in file_version_map.items %}
+            {% if release_version in release_note.release %}
+                {% for file_name in file_list %}
+                    <p style="color: green">{{ file_name | non_breaking_hyphen }}</p>
+                {% endfor %}
+            {% else %}
+                {% for file_name in file_list %}
+                    <p style="color: red">{{ file_name | non_breaking_hyphen }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        {% if gray_when_empty %}
+            <i class="fa-check"></i>
+        {% else %}
+            <i style="color: red" class="fa-check"></i>
+        {% endif %}
+    {% endif %}
+{% else %}
+    {% if file_version_map %}
+        <i class="fa-minus"></i>
+        {% for release_version, impexes in file_version_map.items %}
+            {% for impex_file in impexes %}
+                <p style="color: red">{{ impex_file | non_breaking_hyphen }}</p>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+{% endif %}
