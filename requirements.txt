@@ -1,4 +1,4 @@
-Django==3.2.3
+Django==3.2.8
 django-compressor==2.4.1
 jira==3.0.1
 # HTTPS server setup
